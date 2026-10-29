@@ -1,0 +1,22 @@
+name: Build Mod BONELAB
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Configuration de .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+        
+    - name: Compilation du Mod
+      run: dotnet build JobRpvks.csproj -c Release
+
+    - name: Sauvegarde du fichier DLL
+      uses: actions/upload-artifact@v3
+      with:
+        name: MonModCompile
+        path: bin/Release/net6.0/JobRpvks.dll
